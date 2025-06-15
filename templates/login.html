@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - FixItUp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/auth.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+</head>
+<body>
+
+<div class="auth-container">
+    <h2 class="auth-heading">Welcome Back</h2>
+
+    <!-- Login Form -->
+    <form method="POST" class="auth-form">
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        {% if error %}
+            <div class="error-msg">{{ error }}</div>
+        {% endif %}
+
+        <button type="submit">Login</button>
+    </form>
+
+    <!-- Links -->
+    <p class="auth-links">Don't have an account? <a href="{{ url_for('signup') }}">Sign up</a></p>
+    <p class="auth-links">
+        <a href="#" onclick="handleForgotPassword()">Forgot Password?</a>
+    </p>
+</div>
+
+<!-- Script to handle forgot password logic -->
+<script>
+    function handleForgotPassword() {
+        const emailField = document.querySelector('input[name="email"]');
+        const email = emailField.value.trim();
+
+        if (!email) {
+            alert("Please enter your email first.");
+        } else {
+            window.location.href = `/forgot_password?email=${encodeURIComponent(email)}`;
+        }
+    }
+
+    // Prevent form resubmission on reload
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+</script>
+
+</body>
+</html>

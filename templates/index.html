@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Community Service App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <h1>Welcome {{ current_user.name if current_user.is_authenticated else "Guest" }}!</h1>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">
+                    <strong>{{ category.capitalize() }}:</strong> {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <ul>
+        <li><a href="{{ url_for('report_issue') if current_user.is_authenticated else url_for('login', next=url_for('report_issue')) }}">Report an Issue</a></li>
+        <li><a href="{{ url_for('my_issues') if current_user.is_authenticated else url_for('login', next=url_for('my_issues')) }}">View My Reported Issues</a></li>
+        <li><a href="{{ url_for('service_request') if current_user.is_authenticated else url_for('login', next=url_for('service_request')) }}">Submit Service Request</a></li>
+        <li><a href="{{ url_for('notifications') if current_user.is_authenticated else url_for('login', next=url_for('notifications')) }}">View Notifications</a></li>
+        <li><a href="{{ url_for('post_discussion') if current_user.is_authenticated else url_for('login', next=url_for('post_discussion')) }}">Start a Discussion</a></li>
+        <li><a href="{{ url_for('discussions') if current_user.is_authenticated else url_for('login', next=url_for('discussions')) }}">View Discussions</a></li>
+        <li><a href="{{ url_for('search_issues') if current_user.is_authenticated else url_for('login', next=url_for('search_issues')) }}">Search Issues</a></li>
+        <li><a href="{{ url_for('duplicates') if current_user.is_authenticated else url_for('login', next=url_for('duplicates')) }}">View Duplicate Resolved Requests</a></li>
+
+        {% if current_user.is_authenticated %}
+            <li><a href="{{ url_for('logout') }}">Logout</a></li>
+        {% else %}
+            <li><a href="{{ url_for('login') }}">Login / Sign Up</a></li>
+        {% endif %}
+    </ul>
+
+</body>
+</html>

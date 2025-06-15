@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><title>Discussions</title></head>
+<body>
+    <h2>Community Discussions</h2>
+    <form action="/post_discussion" method="post">
+        Topic: <input type="text" name="topic">
+        <input type="submit" value="Post Discussion">
+    </form>
+
+    <ul>
+        {% for d in discussions %}
+            <li>
+                <strong>{{ d.topic }}</strong><br>
+                <ul>
+                    {% for c in d.comments %}
+                        <li>{{ c }}</li>
+                    {% endfor %}
+                </ul>
+                <form action="/add_comment/{{ d.id }}" method="post">
+                    <input type="text" name="comment" placeholder="Add comment...">
+                    <button type="submit">Post</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>

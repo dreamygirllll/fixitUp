@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head><title>Duplicate Requests</title></head>
+<body>
+    <h2>Duplicate Resolved Requests</h2>
+    <ul>
+        {% for d in duplicates %}
+            <li>Duplicate: {{ d.duplicate_title }} — Original Issue ID: {{ d.original_issue.id }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>

@@ -1,0 +1,90 @@
+/* auth.css */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #14171c;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* Container to match signup style */
+.auth-container {
+    background-color: #1c1f26;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.auth-heading {
+    margin-bottom: 25px;
+    color: #00eaff;
+    font-size: 1.8rem;
+}
+
+/* Form styling to match signup layout */
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2b313a;
+    color: #ffffff;
+    font-size: 1rem;
+    outline: none;
+    transition: border 0.3s ease-in-out;
+}
+
+.auth-form input:focus {
+    border: 2px solid #00eaff;
+}
+
+.auth-form button {
+    background-color: #00eaff;
+    color: #101418;
+    border: none;
+    border-radius: 6px;
+    padding: 12px;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.auth-form button:hover {
+    background-color: #00bcd4;
+    color: #ffffff;
+}
+
+.auth-links {
+    margin-top: 20px;
+    color: #cccccc;
+}
+
+.auth-links a {
+    color: #00eaff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.auth-links a:hover {
+    color: #00bcd4;
+}
+
+.error-msg {
+    color: #ff6b6b;
+    margin-top: -8px;
+    font-size: 0.95rem;
+}

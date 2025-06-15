@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Reported Issues</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            background-color: #f9f9f9;
+        }
+        h2 {
+            color: #333;
+        }
+        .issue-list {
+            list-style: none;
+            padding: 0;
+        }
+        .issue-item {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+        .issue-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #007BFF;
+        }
+        .issue-description {
+            margin: 5px 0;
+        }
+        .issue-status {
+            font-size: 14px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>My Reported Issues</h2>
+
+    {% if issues %}
+        <ul class="issue-list">
+            {% for issue in issues %}
+                <li class="issue-item">
+                    <div class="issue-title">{{ issue.title }}</div>
+                    <div class="issue-description">{{ issue.description }}</div>
+                    <div class="issue-status">Status: {{ issue.status }}</div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No issues reported yet.</p>
+    {% endif %}
+
+</body>
+</html>

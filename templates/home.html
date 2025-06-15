@@ -1,0 +1,111 @@
+<!-- templates/home.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FixItUp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Community Logo">
+        <span>FixItUp</span>
+    </div>
+    <ul class="navbar-links">
+        <li><a href="{{ url_for('home') }}">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact Us</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <h1>Empowering Communities through Service</h1>
+    <p>FixItUp empowers communities by voicing their concerns and escalating them to the right authorities for real, impactful solutions.</p>
+    <a href="{{ url_for('login') }}" class="btn-primary">Get Started</a>
+</section>
+
+<!-- About Section -->
+<section id="about" class="section about">
+    <h2>About Our Platform</h2>
+    <p>Our platform connects volunteers and community members to report issues, request services, and share feedback. We bridge the gap between needs and solutions for a better tomorrow.</p>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section testimonials">
+    <h2>What People Say</h2>
+    <div class="cards">
+        <div class="card">
+            <p>"This platform helped us resolve a local water issue in just two days!"</p>
+            <h4>- Sarah M.</h4>
+        </div>
+        <div class="card">
+            <p>"Volunteering became more meaningful when I saw how effective this service was."</p>
+            <h4>- Ahmed K.</h4>
+        </div>
+        <div class="card">
+            <p>"Our neighborhood used the request service and the response was incredible!"</p>
+            <h4>- Lina P.</h4>
+        </div>
+    </div>
+</section>
+
+<!-- Services Overview -->
+<section id="services" class="section services">
+    <h2>Our Services</h2>
+    <ul>
+        <li>Report Local Issues</li>
+        <li>Request Community Support</li>
+        <li>Participate in Discussions</li>
+        <li>Receive Notifications</li>
+        <li>Give Feedback</li>
+    </ul>
+</section>
+
+<!-- Community Engagement Layer -->
+<section class="section community">
+    <h2>Join a Community of Change-Makers</h2>
+    <p>Our users make real changes by reporting problems and requesting support. Be part of this positive impact today.</p>
+</section>
+
+<!-- Contact Us -->
+<section id="contact" class="section contact">
+    <h2>Contact Us</h2>
+    <p>Have questions, suggestions, or feedback? We'd love to hear from you!</p>
+    <p><strong>Email:</strong> support@communityservice.org</p>
+    <p><strong>Phone:</strong> +92-300-1234567</p>
+    <p><strong>Feedback:</strong> <a href="{{ url_for('feedback') }}" class="btn-primary" style="margin-top: 10px; display: inline-block;">Send Feedback</a></p>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo" style="margin-left: 20px; margin-top: 10px;">
+            <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Logo">
+        </div>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+    <p class="footer-bottom">&copy; 2025 Community Service Portal. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
