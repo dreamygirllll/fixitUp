@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Status - Community Service App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Logo">
+        <span>Status</span>
+    </div>
+</nav>
+
+<main class="main-content">
+    <div class="dashboard-box status-container">
+        <h2 class="status-title">Request Status Overview</h2>
+        <div class="status-section">
+            <div class="status-circle status-pending">
+                <div>
+                    <h3>Pending</h3>
+                    <p>{{ pending_count }}</p>
+                </div>
+            </div>
+            <div class="status-circle status-completed">
+                <div>
+                    <h3>Completed</h3>
+                    <p>{{ completed_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    &copy; 2025 Community Service App. All rights reserved.
+</footer>
+
+</body>
+</html>
