@@ -12,8 +12,8 @@
     <h2 class="auth-heading">Welcome Back</h2>
 
     <!-- Login Form -->
-    <form method="POST" class="auth-form">
-        <input type="email" name="email" placeholder="Email" required>
+    <form method="POST" class="auth-form" autocomplete="off">
+        <input type="email" name="email" placeholder="Email" autocomplete="off" required>
         <input type="password" name="password" placeholder="Password" required>
 
         {% if error %}

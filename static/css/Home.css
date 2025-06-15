@@ -154,6 +154,21 @@ section {
     margin-top: 15px;
     color: #00eaff;
 }
+.btn-primary {
+    padding: 12px 28px;
+    background-color: #00eaff;
+    color: #101418;
+    font-weight: bold;
+    border-radius: 6px;
+    transition: all 0.3s ease-in-out;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #00bcd4;
+    color: #ffffff;
+}
 
 /* Community Section */
 .community {
