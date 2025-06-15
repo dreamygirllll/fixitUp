@@ -3,7 +3,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_bcrypt import Bcrypt
 from mongoengine import connect
 from models import User, Issue, ServiceRequest, Feedback, Notification, Discussion, DuplicateResolvedRequest
-
+# ------- WORK HARD IF YOU WANNA SUCEED ---------
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
 
