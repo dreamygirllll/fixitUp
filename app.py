@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash , se
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import Bcrypt
 from mongoengine import connect
-from models import User, Issue, ServiceRequest, Feedback, Notification, Discussion, DuplicateResolvedRequest, Admin
+from models import User, Issue, ServiceRequest, Feedback, Notification, Discussion, DuplicateResolvedRequest
 
 app = Flask(__name__)
 app.secret_key = 'supersecretkey'
@@ -23,10 +23,7 @@ bcrypt = Bcrypt(app)
 @login_manager.user_loader
 def load_user(user_id):
     user = User.objects(id=user_id).first()
-    if user:
-        return user
-    return Admin.objects(id=user_id).first()
-
+    return user
 
 # ------------------ Public Route ------------------
 @app.route('/')
@@ -125,65 +122,6 @@ def forgot_password():
         else:
             error = "Please enter a new password."
             return render_template('forgot_password.html', email=email, show_reset=True, error=error)
-@app.route('/admin/dashboard')
-@login_required
-def admin_dashboard():
-    if not getattr(current_user, "is_admin", False):
-        flash("Unauthorized access", "danger")
-        return redirect(url_for('home'))
-    return render_template('admin_dashboard.html')
-@app.route('/admin/logout')
-@login_required
-def admin_logout():
-    if getattr(current_user, "is_admin", False):
-        logout_user()
-        flash("Admin logged out successfully.", "info")
-    return redirect(url_for('home'))
-@app.route('/admin/signup', methods=['GET', 'POST'])
-def admin_signup():
-    if current_user.is_authenticated and getattr(current_user, "is_admin", False):
-        return redirect(url_for('admin_dashboard'))
-
-    if request.method == 'POST':
-        name = request.form['name']
-        email = request.form['email']
-        password = request.form['password']
-
-        if Admin.objects(email=email).first():
-            flash("Admin already exists. Please log in.", "warning")
-            return redirect(url_for('login'))
-
-        hashed_pw = bcrypt.generate_password_hash(password).decode('utf-8')
-        admin = Admin(name=name, email=email, password=hashed_pw).save()
-        login_user(admin)
-        flash("Admin signup successful!", "success")
-        return redirect(url_for('admin_dashboard'))
-
-    return render_template('signup.html')
-@app.route('/admin/login', methods=['GET', 'POST'])
-def admin_login():
-    if current_user.is_authenticated and getattr(current_user, "is_admin", False):
-        return redirect(url_for('admin_dashboard'))
-
-    error = None
-
-    if request.method == 'POST':
-        email = request.form['email']
-        password = request.form['password']
-        session['email'] = email
-
-        admin = Admin.objects(email=email).first()
-        if not admin:
-            error = "Email not found."
-        elif bcrypt.check_password_hash(admin.password, password):
-            login_user(admin)
-            flash("Admin login successful!", "success")
-            return redirect(url_for('admin_dashboard'))
-        else:
-            error = "Incorrect password."
-
-    return render_template('login.html', error=error)
-
 @app.route('/logout')
 @login_required
 def logout():

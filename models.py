@@ -26,29 +26,6 @@ class User(Document, UserMixin):
     @property
     def is_admin(self):
         return False
-# ------------------ Admin Model ------------------
-
-class Admin(Document, UserMixin):
-    name = StringField(required=True)
-    email = EmailField(required=True, unique=True)
-    password = StringField(required=True)
-    age = IntField()
-
-    def get_id(self):
-        return str(self.id)
-
-    def to_json(self):
-        return {
-            "id": str(self.id),
-            "name": self.name,
-            "email": self.email,
-            "age": self.age
-        }
-
-    @property
-    def is_admin(self):
-        return True
-
 
 # ------------------ Issue Model ------------------
 
