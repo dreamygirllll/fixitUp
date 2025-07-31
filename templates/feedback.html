@@ -1,13 +1,58 @@
 <!DOCTYPE html>
 <html>
-<head><title>Feedback</title></head>
+<head>
+    <title>Feedback</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/feedback.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    <script>
+    function handleSubmit(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Hide the form
+        const form = document.querySelector('.feedback-form');
+        form.style.display = 'none';
+
+        // Show the thank-you message container
+        const message = document.querySelector('.thank-you-message');
+        const heading = document.querySelector('.feedback-container h2');
+
+        // Update heading with user's name from Flask context
+        heading.textContent = 'Thank you, {{ user_name }} Your feedback is submitted!';
+        message.style.display = 'block';
+
+        // Redirect after 2 seconds
+        setTimeout(() => {
+            window.location.href = "/";  // Change to dashboard or any route
+        }, 3000);
+    }
+</script>
+
+</head>
 <body>
-    <h2>Give Feedback</h2>
-    <form action="/feedback" method="post">
-        Rating (1-5): <input type="number" name="rating" min="1" max="5"><br>
-        Comment: <textarea name="comment"></textarea><br>
-        <input type="submit" value="Submit">
-    </form>
-    <a href="/">Back to Home</a>
+
+    <div class="feedback-container">
+        <h2>Hello {{ user_name }}, Give Your Feedback</h2>
+
+
+        <form class="feedback-form" action="/feedback" method="post">
+
+            <label for="problem">Issue Reported:</label>
+            <input type="text" id="problem" name="problem" required>
+
+            <label for="rating">Rating (1-5):</label>
+            <input type="number" id="rating" name="rating" min="1" max="5" required>
+
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" required></textarea>
+
+            <input type="submit" value="Submit">
+        </form>
+
+        <div class="thank-you-message" style="display: none;">
+
+        </div>
+
+        <a href="/">Back to Home</a>
+    </div>
 </body>
 </html>

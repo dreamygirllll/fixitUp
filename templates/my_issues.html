@@ -3,37 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>My Reported Issues</title>
-    <style>
+   <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            background-color: #f9f9f9;
+            font-family: 'Roboto', sans-serif;
+            background-color: #14171c;
+            color: #ffffff;
+            margin: 0;
+            padding: 40px;
         }
+
         h2 {
-            color: #333;
+            color: #00eaff;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #00eaff;
+            padding-bottom: 10px;
         }
+
         .issue-list {
             list-style: none;
             padding: 0;
+            max-width: 800px;
+            margin: 0 auto;
         }
+
         .issue-item {
-            background: #fff;
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
+            background-color: #1c1f26;
+            border-left: 4px solid #00eaff;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 234, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+
+        .issue-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 0 15px rgba(0, 234, 255, 0.2);
+        }
+
         .issue-title {
-            font-size: 18px;
+            font-size: 1.3rem;
             font-weight: bold;
-            color: #007BFF;
+            color: #00eaff;
+            margin-bottom: 5px;
         }
+
         .issue-description {
-            margin: 5px 0;
+            font-size: 1rem;
+            color: #dddddd;
+            margin: 8px 0;
         }
+
         .issue-status {
-            font-size: 14px;
-            color: #555;
+            font-size: 0.9rem;
+            color: #cccccc;
+            margin-top: 10px;
+        }
+
+        p {
+            text-align: center;
+            color: #999999;
+            font-size: 1rem;
         }
     </style>
 </head>

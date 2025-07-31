@@ -1,29 +1,87 @@
 <!DOCTYPE html>
-<html>
-<head><title>Discussions</title></head>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Discussions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/discussions.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+</head>
 <body>
-    <h2>Community Discussions</h2>
-    <form action="/post_discussion" method="post">
-        Topic: <input type="text" name="topic">
-        <input type="submit" value="Post Discussion">
-    </form>
+<h1 class="heading-glow">Community Discussions</h1>
 
-    <ul>
-        {% for d in discussions %}
-            <li>
-                <strong>{{ d.topic }}</strong><br>
-                <ul>
-                    {% for c in d.comments %}
-                        <li>{{ c }}</li>
-                    {% endfor %}
-                </ul>
-                <form action="/add_comment/{{ d.id }}" method="post">
-                    <input type="text" name="comment" placeholder="Add comment...">
-                    <button type="submit">Post</button>
+<div class="container">
+    <h2 class="auth-heading">Start a New Discussion</h2>
+    <form action="{{ url_for('post_discussion') }}" method="POST" class="auth-form">
+        <input type="text" name="title" placeholder="Title" required>
+        <textarea name="message" placeholder="Message" required></textarea>
+        <select name="category">
+            <option value="General">General</option>
+            <option value="Help">Help</option>
+            <option value="Suggestion">Suggestion</option>
+            <option value="Feedback">Feedback</option>
+        </select>
+        <button type="submit">Post</button>
+    </form>
+</div>
+
+<div class="auth-container" style="margin-top: 40px; max-width: 800px;">
+    <h2 class="auth-heading">All Discussions</h2>
+    {% for post in posts %}
+        <!-- Anchor target for scrolling back to this post -->
+        <div id="discussion-{{ post.id }}" style="border: 1px solid #444; background-color: #1c1f26; padding: 20px; margin-bottom: 20px; border-radius: 10px;">
+            <h3 style="color: #00eaff;">{{ post.title }}</h3>
+            <p>{{ post.message }}</p>
+            <p><strong>Category:</strong> {{ post.category }}</p>
+            <small>Posted by {{ post.posted_by.name }} on {{ post.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+
+            <div style="margin-top: 20px;">
+                <h4>Comments</h4>
+                {% for comment in post.comments %}
+                    <!-- Optional: ID for each comment (if you want even finer control) -->
+                    <div id="comment-{{ loop.index0 }}" style="margin-left: 10px; border-left: 2px solid #555; padding-left: 15px; margin-top: 10px;">
+                        <p><strong>{{ comment.user.name }}:</strong> {{ comment.text }}</p>
+                        <small>{{ comment.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+
+                        <!-- Replies -->
+                        {% for reply in comment.replies %}
+                            <div style="margin-left: 20px; margin-top: 5px;">
+                                <p><strong>{{ reply.user.name }}:</strong> {{ reply.text }}</p>
+                                <small>{{ reply.created_at.strftime('%Y-%m-%d %H:%M') }}</small>
+                            </div>
+                        {% endfor %}
+
+                        <!-- Reply Form -->
+                        <form action="{{ url_for('add_reply', discussion_id=post.id, comment_index=loop.index0) }}" method="POST" style="margin-top: 10px;">
+                            <input type="text" name="reply" placeholder="Write a reply..." required>
+                            <button type="submit">Reply</button>
+                        </form>
+                    </div>
+                {% endfor %}
+
+                <!-- Comment Form -->
+                <form action="{{ url_for('add_comment', discussion_id=post.id) }}" method="POST" style="margin-top: 15px;">
+                    <input type="text" name="comment" placeholder="Add a comment..." required>
+                    <button type="submit">Comment</button>
                 </form>
-            </li>
-        {% endfor %}
-    </ul>
-    <a href="/">Back to Home</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo" style="margin-left: 20px; margin-top: 10px;">
+            <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Logo">
+        </div>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+    <p class="footer-bottom">&copy; 2025 Community Service Portal. All rights reserved.</p>
+</footer>
 </body>
 </html>

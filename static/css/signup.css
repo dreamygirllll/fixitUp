@@ -14,11 +14,12 @@ body {
     background-color: #1c1f26;
     padding: 40px 30px;
     border-radius: 12px;
-    box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.1); /* same shadow as signup */
     width: 100%;
     max-width: 400px;
     text-align: center;
 }
+
 
 .signup-container h2 {
     margin-bottom: 25px;
@@ -79,4 +80,11 @@ body {
 
 .signup-container a:hover {
     color: #00bcd4;
+}
+.signup-container:hover {
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.3); /* intensified shadow on hover */
+    transition: box-shadow 0.4s ease-in-out;
+}
+.signup-container:focus-within {
+    box-shadow: 0 0 35px rgba(0, 255, 255, 0.3);
 }

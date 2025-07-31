@@ -1,0 +1,226 @@
+                      *, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #14171c;
+    color: #ffffff;
+    padding: 0 15px;
+    font-size: 14px;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+    width: 100%;
+    box-sizing: border-box;
+}
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+
+h1.heading-glow {
+    font-size: 2rem;
+    margin: 40px 0 20px 20px;
+    background: linear-gradient(45deg, #00eaff, #ffffff, #68878a, #22262e);
+    background-size: 300% 300%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: pulseColor 6s ease infinite;
+    text-align: left;
+}
+
+@keyframes pulseColor {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container, .auth-container {
+    max-width: 800px;
+    margin: 0 auto 60px auto;
+    padding: 20px;
+    background-color: #1c1f26;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+    border: 1px solid #00eaff44;
+}
+
+.auth-heading {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    color: #00eaff;
+    text-align: left;
+}
+
+.auth-form input,
+.auth-form textarea,
+.auth-form select,
+form input[type="text"],
+form textarea,
+form select {
+    width: 100%;
+    margin-bottom: 12px;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2b313a;
+    color: #ffffff;
+    font-size: 0.9rem;
+}
+
+.auth-form button,
+form button {
+    padding: 10px 16px;
+    background-color: #00eaff;
+    border: none;
+    border-radius: 6px;
+    color: #101418;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    font-size: 0.9rem;
+}
+
+.auth-form button:hover,
+form button:hover {
+    background-color: #00bcd4;
+    color: #ffffff;
+}
+
+.auth-container > div {
+    background-color: #2b313a;
+    border-radius: 10px;
+    padding: 16px;
+    margin-top: 20px;
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.05);
+    border: 1px solid #00eaff33;
+}
+
+.auth-container h3 {
+    color: #00eaff;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+.auth-container h4{
+    color: #00eaff;
+}
+.comment {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #1e232b;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+.reply {
+    margin-left: 30px;
+    margin-top: 8px;
+    padding: 8px;
+    background-color: #15191f;
+    border-left: 3px solid #00eaff;
+    border-radius: 6px;
+    font-size: 0.85rem;
+}
+
+form[action*="add_comment"],
+form[action*="add_reply"] {
+    display: flex;
+    gap: 10px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+}
+
+form[action*="add_comment"] input,
+form[action*="add_reply"] input {
+    flex: 1;
+    padding: 8px;
+    border-radius: 6px;
+    background-color: #2b313a;
+    border: none;
+    color: #fff;
+    font-size: 0.85rem;
+}
+
+form[action*="add_comment"] button,
+form[action*="add_reply"] button {
+    padding: 8px 12px;
+    font-size: 0.85rem;
+    background-color: #00eaff;
+    color: #101418;
+    font-weight: 500;
+    border-radius: 6px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+form[action*="add_comment"] button:hover,
+form[action*="add_reply"] button:hover {
+    background-color: #00bcd4;
+    color: #ffffff;
+}
+
+footer {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    padding: 30px 20px;
+    margin-top: 40px;
+    border-top: 1px solid #222;
+    font-size: 0.85rem;
+    box-sizing: border-box;
+    position: relative;
+    left: 0;
+}
+
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto 10px;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.footer-logo img {
+    height: 40px;
+}
+
+.footer-social a {
+    margin-right: 20px;
+    color: #ffffff;
+    font-size: 1rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.footer-social a:hover {
+    color: #00eaff;
+}
+
+.footer-bottom {
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.85;
+    margin-top: 5px;
+}
+
+.container:hover,
+.auth-container > div:hover,
+.comment:hover,
+.reply:hover {
+    border: 1px solid #00eaff;
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    transition: all 0.3s ease-in-out;
+    border-radius: 10px;
+}
+

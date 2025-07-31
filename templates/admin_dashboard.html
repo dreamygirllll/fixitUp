@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - FixItUp</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.png') }}" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Community Logo">
+        <span>FixItUp - Admin</span>
+    </div>
+    <ul class="navbar-links">
+        <li><a href="https://mail.google.com/mail/u/bcsf22m005@pucit.edu.pk" target="_blank">Check my mails</a></li>
+        <li><a href="{{ url_for('view_issues') }}">View Issues</a></li>
+        <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
+    </ul>
+</nav>
+
+<main class="admin-dashboard">
+
+  <!-- 1. Welcome + KPI Cards -->
+  <section class="welcome-card">
+    <h1>Welcome, Admin!</h1>
+    <p>Here’s a quick overview of your platform status:</p>
+    <div class="kpi-cards">
+      <div class="kpi-card">
+        <h2>Total Issues</h2>
+        <p>{{ total_issues }}</p>
+      </div>
+      <div class="kpi-card">
+        <h2>Pending</h2>
+        <p>{{ pending_count }}</p>
+      </div>
+      <div class="kpi-card">
+        <h2>In Progress</h2>
+        <p>{{ in_progress_count }}</p>
+      </div>
+      <div class="kpi-card">
+        <h2>Resolved</h2>
+        <p>{{ resolved_count }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Charts Section -->
+  <section class="charts-section">
+    <div class="chart-container">
+      <h3>Issues by Status</h3>
+      <canvas id="issuesPieChart"></canvas>
+    </div>
+    <div class="chart-container">
+      <h3>Issues Over Time</h3>
+      <canvas id="issuesLineChart"></canvas>
+    </div>
+  </section>
+
+  <!-- 3. Recent Issues Table -->
+  <section class="recent-issues">
+    <h2>Recent Activities</h2>
+    <table>
+      <thead>
+        <tr><th>Title</th><th>Status</th><th>City</th><th>Date</th></tr>
+      </thead>
+      <tbody>
+        {% for issue in recent_issues %}
+        <tr>
+          <td>{{ issue.title }}</td>
+          <td><span class="badge {{ issue.status }}">{{ issue.status.replace('-', ' ').title() }}</span></td>
+          <td>{{ issue.city }}</td>
+          <td>{{ issue.created_at.strftime('%Y-%m-%d') }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+
+<!-- 4. Feedback Panel -->
+<!-- 4. Feedback Panel -->
+<section class="feedback-section" id="feedback">
+  <h2>User Feedbacks</h2>
+
+  <!-- 🔽 Filter by Sentiment Dropdown -->
+  <form method="GET" action="{{ url_for('admin_dashboard') }}#feedback">
+    <label for="sentiment">Filter by Sentiment:</label>
+    <select name="sentiment" id="sentiment" onchange="this.form.submit()">
+      <option value="" {% if not selected_sentiment %}selected{% endif %}>All</option>
+      <option value="positive" {% if selected_sentiment == 'positive' %}selected{% endif %}>Positive</option>
+      <option value="neutral" {% if selected_sentiment == 'neutral' %}selected{% endif %}>Neutral</option>
+      <option value="negative" {% if selected_sentiment == 'negative' %}selected{% endif %}>Negative</option>
+    </select>
+  </form>
+
+  <br>
+
+  {% for fb in feedbacks %}
+    <div class="feedback-card">
+      <p><strong>User:</strong> {{ fb.user.name }} ({{ fb.user.email }})</p>
+      <p><strong>Date:</strong> {{ fb.submitted_at.strftime('%Y-%m-%d') }}</p>
+      <p><strong>Sentiment:</strong> {{ fb.sentiment|capitalize }}</p>
+      <p><strong>Rating:</strong> ({{ fb.rating }}/5)</p>
+      <p><strong>Comment:</strong> {{ fb.comment }}</p>
+    </div>
+  {% else %}
+    <p>No feedback available.</p>
+  {% endfor %}
+</section>
+
+
+
+
+</main>
+
+
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo" style="margin-left: 20px; margin-top: 10px;">
+            <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Logo">
+        </div>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+    <p class="footer-bottom">&copy; 2025 FixItUp Admin. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const pieCtx = document.getElementById('issuesPieChart');
+  new Chart(pieCtx, {
+    type: 'pie',
+    data: {
+      labels: ['Pending', 'In Progress', 'Resolved'],
+      datasets: [{
+        data: [{{ pending_count }}, {{ in_progress_count }}, {{ resolved_count }}],
+        backgroundColor: ['#ff9800','#2196f3','#4caf50']
+      }]
+    }
+  });
+
+  const lineCtx = document.getElementById('issuesLineChart');
+  new Chart(lineCtx, {
+    type: 'line',
+    data: {
+      labels: {{ chart_labels|safe }},
+      datasets: [{
+        label: 'Issues Created',
+        data: {{ chart_data|safe }},
+        borderColor: '#00eaff',
+        tension: 0.3,
+        fill: false
+      }]
+    }
+  });
+</script>
+

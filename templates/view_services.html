@@ -1,0 +1,37 @@
+<!-- templates/view_services.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin - View Service Requests</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Community Logo">
+            <span>FixItUp Admin</span>
+        </div>
+        <ul class="navbar-links">
+            <li><a href="{{ url_for('admin_dashboard') }}">Dashboard</a></li>
+            <li><a href="{{ url_for('view_users') }}">Users</a></li>
+            <li><a href="{{ url_for('view_issues') }}">Issues</a></li>
+            <li><a href="{{ url_for('view_services') }}">Service Requests</a></li>
+            <li><a href="{{ url_for('admin_logout') }}">Logout</a></li>
+        </ul>
+    </nav>
+
+    <section class="section">
+        <h2>All Service Requests</h2>
+        <ul>
+            {% for service in services %}
+                <li>
+                    <strong>{{ service.service_type }}</strong> <br>
+                    Requested by: {{ service.requested_by.name }}
+                </li>
+            {% endfor %}
+        </ul>
+    </section>
+</body>
+</html>

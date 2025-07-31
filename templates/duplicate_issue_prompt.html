@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Issue Already Reported</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #14171c;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #1c1f26;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            transition: box-shadow 0.4s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .container:hover {
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+
+        h2 {
+            color: #00eaff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #cccccc;
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        button {
+            background-color: transparent;
+            color: #00eaff;
+            border: 2px solid #00eaff;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #00bcd4;
+            color: #ffffff;
+            border-color: #00bcd4;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2> Issue Already Reported</h2>
+        <p>The issue <strong>"{{ title }}"</strong> has already been reported in <strong>{{ city }}</strong>.</p>
+        <p>We are already processing it. Thank you for your concern and vigilance!</p>
+
+        <form action="{{ url_for('dashboard') }}" method="get">
+            <button type="submit">Back to Dashboard</button>
+        </form>
+    </div>
+</body>
+</html>

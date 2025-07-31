@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Feedback Submitted</title>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #14171c;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .confirmation-container {
+            background-color: #1c1f26;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.1);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            transition: box-shadow 0.4s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .confirmation-container:hover {
+            box-shadow: 0 0 40px rgba(0, 255, 255, 0.3);
+            transform: scale(1.02);
+        }
+
+        .confirmation-container h2 {
+            color: #00eaff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .confirmation-container p {
+            color: #cccccc;
+            font-size: 1rem;
+            margin-bottom: 30px;
+        }
+
+        .confirmation-container button {
+            background-color: transparent;
+            color: #00eaff;
+            border: 2px solid #00eaff;
+            border-radius: 6px;
+            padding: 12px 24px;
+            font-weight: bold;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .confirmation-container button:hover {
+            background-color: #00bcd4;
+            color: #ffffff;
+            border-color: #00bcd4;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <h2>Thank You for Your Feedback!</h2>
+        <p>We appreciate your time in helping us improve.</p>
+
+        <!-- Button to redirect to home -->
+        <form action="{{ url_for('home') }}" method="get">
+            <button type="submit">Back to Home</button>
+        </form>
+    </div>
+</body>
+</html>

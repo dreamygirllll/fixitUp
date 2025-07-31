@@ -19,9 +19,10 @@
 <body>
 
 <!-- Navbar -->
-<nav class="navbar">
+<!-- Navbar -->
+<div class="navbar">
     <div class="navbar-logo">
-        <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Community Logo">
+        <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Logo">
         <span>FixItUp</span>
     </div>
     <ul class="navbar-links">
@@ -29,8 +30,15 @@
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#contact">Contact Us</a></li>
+        <li>
+            <div class="admin-link">
+                <a href="{{ url_for('admin_login') }}">Admin</a>
+            </div>
+        </li>
     </ul>
-</nav>
+</div>
+
+
 
 <!-- Hero Section -->
 <section id="home" class="hero">
@@ -66,15 +74,22 @@
 
 <!-- Services Overview -->
 <section id="services" class="section services">
-    <h2>Our Services</h2>
-    <ul>
+  <div class="services-container">
+    <div class="services-text">
+      <h2>Our Services</h2>
+      <ul>
         <li>Report Local Issues</li>
         <li>Request Community Support</li>
         <li>Participate in Discussions</li>
-        <li>Receive Notifications</li>
-        <li>Give Feedback</li>
-    </ul>
+        <li>Reaching out to higher authorities</li>
+      </ul>
+    </div>
+    <div class="services-image">
+      <img src="{{ url_for('static', filename='images/csp.jpg') }}" alt="Our Services">
+    </div>
+  </div>
 </section>
+
 
 <!-- Community Engagement Layer -->
 <section class="section community">

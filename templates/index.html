@@ -7,37 +7,178 @@
     <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico') }}" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
+
 <body>
-
-    <h1>Welcome {{ current_user.name if current_user.is_authenticated else "Guest" }}!</h1>
-
-    <!-- Flash Messages -->
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="flash {{ category }}">
-                    <strong>{{ category.capitalize() }}:</strong> {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-
-    <ul>
-        <li><a href="{{ url_for('report_issue') if current_user.is_authenticated else url_for('login', next=url_for('report_issue')) }}">Report an Issue</a></li>
-        <li><a href="{{ url_for('my_issues') if current_user.is_authenticated else url_for('login', next=url_for('my_issues')) }}">View My Reported Issues</a></li>
-        <li><a href="{{ url_for('service_request') if current_user.is_authenticated else url_for('login', next=url_for('service_request')) }}">Submit Service Request</a></li>
-        <li><a href="{{ url_for('notifications') if current_user.is_authenticated else url_for('login', next=url_for('notifications')) }}">View Notifications</a></li>
-        <li><a href="{{ url_for('post_discussion') if current_user.is_authenticated else url_for('login', next=url_for('post_discussion')) }}">Start a Discussion</a></li>
-        <li><a href="{{ url_for('discussions') if current_user.is_authenticated else url_for('login', next=url_for('discussions')) }}">View Discussions</a></li>
-        <li><a href="{{ url_for('search_issues') if current_user.is_authenticated else url_for('login', next=url_for('search_issues')) }}">Search Issues</a></li>
-        <li><a href="{{ url_for('duplicates') if current_user.is_authenticated else url_for('login', next=url_for('duplicates')) }}">View Duplicate Resolved Requests</a></li>
-
-        {% if current_user.is_authenticated %}
-            <li><a href="{{ url_for('logout') }}">Logout</a></li>
-        {% else %}
-            <li><a href="{{ url_for('login') }}">Login / Sign Up</a></li>
-        {% endif %}
+<nav class="navbar">
+    <div class="navbar-logo">
+        <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Logo">
+        <span><strong>Dashboard</strong></span>
+    </div>
+    <ul class="navbar-links">
+        <li><a href="{{ url_for('notifications') }}"><strong>Notifications</strong></a></li>
+        <li><a href="#report-form-section"><strong>Report Issue</strong></a></li>
+        <li><a href="#my-issues-section"><strong>View Reports</strong></a></li>
+        <li><a href="#status-section"><strong>Status</strong></a></li>
+        <li><a href="{{ url_for('logout') }}"><strong>Logout</strong></a></li>
     </ul>
+</nav>
+
+<main class="main-content">
+
+    <!-- Report Issue Section -->
+    <section id="report-form-section" class="report-wrapper">
+        <div class="report-content">
+            <div class="report-heading">
+                <h2>Report Your Issue</h2>
+                <p>Let us know what's bothering your community.</p>
+            </div>
+
+            <div class="report-form">
+                <form method="POST" action="{{ url_for('report_issue') }}">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" required>
+
+                    <label for="city">City</label>
+                    <select name="city" required>
+                        <option value="">--Select City--</option>
+                        <option>Lahore</option>
+                        <option>Karachi</option>
+                        <option>Islamabad</option>
+                        <option>Faisalabad</option>
+                    </select>
+
+                    <label for="description">Description</label>
+                    <textarea name="description" required></textarea>
+
+                    <button type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="success-modal hidden">
+        <h2>Submitted</h2>
+        <img src="{{ url_for('static', filename='images/tick.png') }}" alt="Success" class="tick-img">
+    </div>
+
+    <!-- VIEW ISSUES SECTION -->
+    <section id="my-issues-section" class="issues-section">
+        <h2 class="section-title">Your Reported Issues</h2>
+        <div class="issue-card" id="issueCard">
+            <h3 id="issueTitle">Loading...</h3>
+            <p><strong>City:</strong> <span id="issueCity"></span></p>
+            <p><strong>Status:</strong> <span id="issueStatus"></span></p>
+            <p><strong>Date Reported:</strong> <span id="issueDate"></span></p>
+            <p><strong>Description:</strong> <span id="issueDescription"></span></p>
+        </div>
+
+        <div class="issue-nav">
+            <button id="prevIssue" class="nav-btn">&#8592;</button>
+            <button id="nextIssue" class="nav-btn">&#8594;</button>
+        </div>
+    </section>
+
+ <!-- STATUS OVERVIEW SECTION -->
+<!-- STATUS OVERVIEW SECTION -->
+<section id="status-section" class="report-wrapper">
+    <div class="report-content">
+        <div class="report-heading">
+            <h2>Status Overview</h2>
+            <p>This is your status of applications.</p>
+        </div>
+        <div class="status-circles">
+            <div class="status-circle-glow">
+                <h3>Pending</h3>
+                <p>{{ pending_count }}</p>
+            </div>
+            <div class="status-circle-glow">
+                <h3>In Progress</h3>
+                <p>{{ in_progress_count }}</p>
+            </div>
+            <div class="status-circle-glow">
+                <h3>Completed</h3>
+                <p>{{ completed_count }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+</main>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-logo" style="margin-left: 20px; margin-top: 10px;">
+            <img src="{{ url_for('static', filename='images/logo.jpeg') }}" alt="Logo">
+        </div>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+    <p class="footer-bottom">&copy; 2025 Community Service Portal. All rights reserved.</p>
+</footer>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const flashSuccess = "{{ get_flashed_messages(category_filter=['success']) | join('') }}";
+        if (flashSuccess.includes('Issue reported successfully')) {
+            document.getElementById('successModal').classList.remove('hidden');
+            setTimeout(() => {
+                document.getElementById('successModal').classList.add('hidden');
+            }, 3000);
+        }
+    });
+</script>
+
+<script>
+    const issues = {{ issues | tojson }};
+    let currentIndex = 0;
+
+    function makeLinksClickable(text) {
+        if (!text) return '';
+        const urlRegex = /(https?:\/\/[^\s]+)/g;
+        const emailRegex = /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/g;
+
+        return text
+            .replace(urlRegex, '<a href="$1" target="_blank">$1</a>')
+            .replace(emailRegex, '<a href="mailto:$1">$1</a>');
+    }
+
+    function showIssue(index) {
+        if (issues.length === 0) {
+            document.getElementById("issueCard").innerHTML = "<p>No issues found.</p>";
+            return;
+        }
+
+        const issue = issues[index];
+        document.getElementById("issueTitle").innerText = issue.title;
+        document.getElementById("issueCity").innerText = issue.city;
+        document.getElementById("issueStatus").innerText = issue.status;
+        document.getElementById("issueDate").innerText = new Date(issue.created_at).toLocaleString();
+        document.getElementById("issueDescription").innerHTML = makeLinksClickable(issue.description);
+    }
+
+    document.getElementById("nextIssue").addEventListener("click", () => {
+        if (currentIndex < issues.length - 1) {
+            currentIndex++;
+            showIssue(currentIndex);
+        }
+    });
+
+    document.getElementById("prevIssue").addEventListener("click", () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            showIssue(currentIndex);
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        showIssue(currentIndex);
+    });
+</script>
 
 </body>
 </html>
